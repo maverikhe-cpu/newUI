@@ -8,7 +8,8 @@ const TrendDataForm = () => {
 
   const handleArrayChange = (key, index, value) => {
     const newArray = [...trends[key]];
-    newArray[index] = Number(value);
+    // Allow empty input - don't convert empty string to 0
+    newArray[index] = value === '' ? '' : Number(value);
     updateData(`trends.${key}`, newArray);
   };
 
@@ -133,7 +134,9 @@ const TrendDataForm = () => {
                 value={item.value}
                 onChange={(e) => {
                   const newArray = [...data.reworkReasons];
-                  newArray[index] = { ...newArray[index], value: Number(e.target.value) };
+                  // Allow empty input - don't convert empty string to 0
+                  const numValue = e.target.value === '' ? '' : Number(e.target.value);
+                  newArray[index] = { ...newArray[index], value: numValue };
                   updateData('reworkReasons', newArray);
                 }}
                 className="admin-input"

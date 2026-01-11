@@ -5,6 +5,18 @@ const BasicDataForm = () => {
   const { data, updateData } = useDashboardData();
   const { business } = data;
 
+  // Helper to handle number input - allows empty input
+  const handleNumberChange = (path, stringValue) => {
+    if (stringValue === '') {
+      updateData(path, '');
+    } else {
+      updateData(path, Number(stringValue));
+    }
+  };
+
+  // Helper to display value - empty string for 0 allows clearing
+  const displayValue = (val) => val === '' ? '' : val;
+
   return (
     <div className="admin-section">
       <h2 className="admin-section-title">基础业务数据</h2>
@@ -19,7 +31,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.projectCount}
-                onChange={(e) => updateData('business.projectCount', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.projectCount', e.target.value)}
                 className="admin-input"
               />
               <span>个</span>
@@ -31,7 +43,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.completionRate}
-                onChange={(e) => updateData('business.completionRate', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.completionRate', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>
@@ -44,7 +56,7 @@ const BasicDataForm = () => {
                 type="number"
                 step="0.1"
                 value={business.onTimeDelivery}
-                onChange={(e) => updateData('business.onTimeDelivery', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.onTimeDelivery', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>
@@ -62,7 +74,7 @@ const BasicDataForm = () => {
             <input
               type="number"
               value={business.workerCount}
-              onChange={(e) => updateData('business.workerCount', Number(e.target.value))}
+              onChange={(e) => handleNumberChange('business.workerCount', e.target.value)}
               className="admin-input"
             />
           </div>
@@ -71,7 +83,7 @@ const BasicDataForm = () => {
             <input
               type="number"
               value={business.activeTeams}
-              onChange={(e) => updateData('business.activeTeams', Number(e.target.value))}
+              onChange={(e) => handleNumberChange('business.activeTeams', e.target.value)}
               className="admin-input"
             />
           </div>
@@ -80,7 +92,7 @@ const BasicDataForm = () => {
             <input
               type="number"
               value={business.managers}
-              onChange={(e) => updateData('business.managers', Number(e.target.value))}
+              onChange={(e) => handleNumberChange('business.managers', e.target.value)}
               className="admin-input"
             />
           </div>
@@ -97,7 +109,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.safetyDays}
-                onChange={(e) => updateData('business.safetyDays', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.safetyDays', e.target.value)}
                 className="admin-input"
               />
               <span>天</span>
@@ -108,7 +120,7 @@ const BasicDataForm = () => {
             <input
               type="number"
               value={business.todayAlerts}
-              onChange={(e) => updateData('business.todayAlerts', Number(e.target.value))}
+              onChange={(e) => handleNumberChange('business.todayAlerts', e.target.value)}
               className="admin-input"
             />
           </div>
@@ -125,7 +137,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.progress.normal}
-                onChange={(e) => updateData('business.progress.normal', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.progress.normal', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>
@@ -137,7 +149,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.progress.finishing}
-                onChange={(e) => updateData('business.progress.finishing', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.progress.finishing', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>
@@ -149,7 +161,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.progress.risk}
-                onChange={(e) => updateData('business.progress.risk', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.progress.risk', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>
@@ -169,7 +181,7 @@ const BasicDataForm = () => {
                 type="number"
                 step="0.1"
                 value={business.reworkRate}
-                onChange={(e) => updateData('business.reworkRate', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.reworkRate', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>
@@ -181,7 +193,7 @@ const BasicDataForm = () => {
               type="number"
               step="0.1"
               value={business.reworkChange}
-              onChange={(e) => updateData('business.reworkChange', Number(e.target.value))}
+              onChange={(e) => handleNumberChange('business.reworkChange', e.target.value)}
               className="admin-input"
             />
             <div className="admin-hint">正数表示上升，负数表示下降</div>
@@ -199,7 +211,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.avgResponseTime}
-                onChange={(e) => updateData('business.avgResponseTime', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.avgResponseTime', e.target.value)}
                 className="admin-input"
               />
               <span>分钟</span>
@@ -211,7 +223,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.avgResolveTime}
-                onChange={(e) => updateData('business.avgResolveTime', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.avgResolveTime', e.target.value)}
                 className="admin-input"
               />
               <span>小时</span>
@@ -225,7 +237,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.instantResponseRate}
-                onChange={(e) => updateData('business.instantResponseRate', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.instantResponseRate', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>
@@ -237,7 +249,7 @@ const BasicDataForm = () => {
               <input
                 type="number"
                 value={business.resolveWithin24h}
-                onChange={(e) => updateData('business.resolveWithin24h', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('business.resolveWithin24h', e.target.value)}
                 className="admin-input"
               />
               <span>%</span>

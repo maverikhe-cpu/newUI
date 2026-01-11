@@ -6,6 +6,15 @@ const AdvancedForm = () => {
   const { data, updateData } = useDashboardData();
   const { advanced } = data;
 
+  // Helper to handle number input - allows empty input
+  const handleNumberChange = (path, stringValue) => {
+    if (stringValue === '') {
+      updateData(path, '');
+    } else {
+      updateData(path, Number(stringValue));
+    }
+  };
+
   return (
     <div className="admin-section">
       <h2 className="admin-section-title">
@@ -27,7 +36,7 @@ const AdvancedForm = () => {
                 min="10"
                 max="200"
                 value={advanced.particleCount}
-                onChange={(e) => updateData('advanced.particleCount', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('advanced.particleCount', e.target.value)}
                 className="admin-input"
               />
               <div className="admin-hint">背景粒子数量，建议 30-100</div>
@@ -39,7 +48,7 @@ const AdvancedForm = () => {
                 min="4"
                 max="20"
                 value={advanced.networkNodeCount}
-                onChange={(e) => updateData('advanced.networkNodeCount', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('advanced.networkNodeCount', e.target.value)}
                 className="admin-input"
               />
               <div className="admin-hint">神经网络可视化节点数，建议 6-12</div>
@@ -54,7 +63,7 @@ const AdvancedForm = () => {
                 min="5"
                 max="100"
                 value={advanced.marqueeSpeed}
-                onChange={(e) => updateData('advanced.marqueeSpeed', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('advanced.marqueeSpeed', e.target.value)}
                 className="admin-input"
               />
               <div className="admin-hint">工地图片滚动速度，越小越快</div>
@@ -67,7 +76,7 @@ const AdvancedForm = () => {
                 max="10000"
                 step="500"
                 value={advanced.newsSpeed}
-                onChange={(e) => updateData('advanced.newsSpeed', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('advanced.newsSpeed', e.target.value)}
                 className="admin-input"
               />
               <div className="admin-hint">新闻滚动间隔时间</div>
@@ -82,7 +91,7 @@ const AdvancedForm = () => {
                 min="1"
                 max="6"
                 value={advanced.newsVisibleItems}
-                onChange={(e) => updateData('advanced.newsVisibleItems', Number(e.target.value))}
+                onChange={(e) => handleNumberChange('advanced.newsVisibleItems', e.target.value)}
                 className="admin-input"
               />
               <div className="admin-hint">同时显示的新闻条数</div>
