@@ -1,0 +1,90 @@
+.leaflet-div-icon {
+    background: transparent;
+    border: none;
+}
+
+.marker-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--secondary-amber);
+    /* Default Color */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px var(--secondary-amber);
+    z-index: 2;
+}
+
+.marker-pulse {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--secondary-amber);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 2s infinite;
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Alert State */
+.marker-dot.alert {
+    background-color: var(--alert-red);
+    box-shadow: 0 0 8px var(--alert-red);
+}
+
+.marker-pulse.alert {
+    border-color: var(--alert-red);
+}
+
+/* Active/Normal State (Cyan option) */
+.marker-dot.normal {
+    background-color: var(--primary-cyan);
+    box-shadow: 0 0 8px var(--primary-cyan);
+}
+
+.marker-pulse.normal {
+    border-color: var(--primary-cyan);
+}
+
+@keyframes pulse {
+    0% {
+        width: 8px;
+        height: 8px;
+        opacity: 0.8;
+    }
+
+    100% {
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+    }
+}
+/* Radar Scan Effect centered on map */
+.leaflet-pane.leaflet-map-pane::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px dashed rgba(0, 240, 255, 0.2);
+    box-shadow: 0 0 50px rgba(0, 240, 255, 0.05);
+    z-index: 0;
+    pointer-events: none;
+    animation: radarSpin 10s linear infinite;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(0, 240, 255, 0.1) 60deg, transparent 60.1deg);
+}
+
+@keyframes radarSpin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Connection Lines (Simulated with grid for now on map container, or using SVG in React code is better, but this is a quick CSS hack for "tech texture") */

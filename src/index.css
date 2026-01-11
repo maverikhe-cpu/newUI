@@ -1,0 +1,14 @@
+@import './styles/dashboard.css';
+@import 'leaflet/dist/leaflet.css';
+
+/* Global resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

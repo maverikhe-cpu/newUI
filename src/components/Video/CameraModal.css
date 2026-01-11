@@ -1,0 +1,193 @@
+.camera-modal-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 640px;
+    height: 360px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.camera-window {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid var(--primary-cyan);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.camera-window::before,
+.camera-window::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--primary-cyan);
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.camera-window::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.camera-window::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+.camera-header {
+    height: 48px;
+    background: rgba(0, 240, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.camera-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-cyan);
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.recording-icon {
+    animation: blink 2s infinite;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--primary-cyan);
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(0, 240, 255, 0.1);
+    border-radius: 4px;
+}
+
+.camera-content {
+    flex: 1;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #0e1424 0%, #000 100%);
+    position: relative;
+    color: rgba(255, 255, 255, 0.1);
+}
+
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    animation: scan 5s linear infinite;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Grid overlay for tech feel */
+.camera-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+    background-size: 100px 100px;
+    pointer-events: none;
+}
+
+.camera-info-overlay {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-family: 'Courier New', monospace;
+    color: #fff;
+    font-size: 14px;
+    text-shadow: 0 1px 2px #000;
+    z-index: 5;
+}
+
+.camera-footer {
+    height: 36px;
+    background: rgba(5, 8, 20, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-top: 1px solid rgba(0, 240, 255, 0.3);
+    color: var(--primary-cyan);
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes scan {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
