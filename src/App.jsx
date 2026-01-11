@@ -11,6 +11,7 @@ import NeuralNetwork from './components/Effects/NeuralNetwork';
 import SiteMarquee from './components/Widgets/SiteMarquee';
 import WeatherWidget from './components/Widgets/WeatherWidget';
 import IntroAnimation from './components/Effects/IntroAnimation';
+import NewsTicker from './components/Widgets/NewsTicker';
 
 // Construction site images from public folder
 const marqueeData = [
@@ -19,6 +20,17 @@ const marqueeData = [
   { src: '/construction_site_3_1768113066911.png', label: 'C区-塔吊夜间作业' },
   { src: '/construction_site_4_1768113084947.png', label: 'D区-土方机械作业' },
   { src: '/construction_site_1_1768113029656.png', label: 'E区-材料进场卸货' },
+];
+
+// News ticker data
+const newsData = [
+  { time: '10:42 AM', content: 'B区电路负载异常', color: 'var(--alert-red)' },
+  { time: '09:15 AM', content: '主材已进场 (地板)', color: 'var(--primary-cyan)' },
+  { time: '08:30 AM', content: '泥木班组打卡开工', color: 'var(--primary-cyan)' },
+  { time: '08:00 AM', content: '早班会进行安全交底', color: 'var(--primary-cyan)' },
+  { time: '07:45 AM', content: 'A区塔吊检查完成', color: 'var(--secondary-amber)' },
+  { time: '07:30 AM', content: '全员入场体温检测', color: 'var(--secondary-amber)' },
+  { time: '07:15 AM', content: '现场照明系统开启', color: 'var(--secondary-amber)' },
 ];
 
 function App() {
@@ -234,19 +246,8 @@ function App() {
             <div className="holographic-overlay" />
             <NeuralNetwork width={280} height={60} nodeCount={8} style={{ top: 'auto', bottom: 0, opacity: 0.15 }} />
             <div className="panel-title"><Clock size={18} /> 最新动态</div>
-            <div className="content-placeholder">
-              <div className="stat-row" style={{ border: 'none', padding: '2px 0' }}>
-                <span style={{ fontSize: '12px', color: 'var(--alert-red)' }}>10:42 AM</span>
-                <span style={{ fontSize: '12px' }}>B区电路负载异常</span>
-              </div>
-              <div className="stat-row" style={{ border: 'none', padding: '2px 0' }}>
-                <span style={{ fontSize: '12px', color: 'var(--primary-cyan)' }}>09:15 AM</span>
-                <span style={{ fontSize: '12px' }}>主材已进场 (地板)</span>
-              </div>
-              <div className="stat-row" style={{ border: 'none', padding: '2px 0' }}>
-                <span style={{ fontSize: '12px', color: 'var(--primary-cyan)' }}>08:30 AM</span>
-                <span style={{ fontSize: '12px' }}>泥木班组打卡开工</span>
-              </div>
+            <div className="content-placeholder" style={{ height: 'calc(100% - 24px)', display: 'flex', alignItems: 'center' }}>
+              <NewsTicker items={newsData} speed={3000} pauseOnHover={true} />
             </div>
           </div>
           <div className="panel with-mouse-glow" style={{ flex: 1.1, position: 'relative', overflow: 'hidden', minHeight: '0' }}>
