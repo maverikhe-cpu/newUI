@@ -1,0 +1,10 @@
+# Zeabur deployment configuration
+version: 1
+
+services:
+  - name: web
+    type: prebuilt
+    buildCommand: npm run build
+    outputDirectory: dist
+    environment:
+      - NODE_VERSION=20
