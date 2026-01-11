@@ -8,25 +8,21 @@ import ParticleBackground from './components/Effects/ParticleBackground';
 import NeuralNetwork from './components/Effects/NeuralNetwork';
 
 import SiteMarquee from './components/Widgets/SiteMarquee';
-// Import assets (simulated) - In a real app these might be dynamic imports or URLs
-import siteImg1 from '/Users/mingjiehe/.gemini/antigravity/brain/77298365-c7ea-40c3-87b5-79c782fb14a1/construction_site_1_1768113029656.png';
-import siteImg2 from '/Users/mingjiehe/.gemini/antigravity/brain/77298365-c7ea-40c3-87b5-79c782fb14a1/construction_site_2_1768113046044.png';
-import siteImg3 from '/Users/mingjiehe/.gemini/antigravity/brain/77298365-c7ea-40c3-87b5-79c782fb14a1/construction_site_3_1768113066911.png';
-import siteImg4 from '/Users/mingjiehe/.gemini/antigravity/brain/77298365-c7ea-40c3-87b5-79c782fb14a1/construction_site_4_1768113084947.png';
+
+// Construction site images from public folder
+const marqueeData = [
+  { src: '/construction_site_1_1768113029656.png', label: 'A区-主体结构施工' },
+  { src: '/construction_site_2_1768113046044.png', label: 'B区-现场技术交底' },
+  { src: '/construction_site_3_1768113066911.png', label: 'C区-塔吊夜间作业' },
+  { src: '/construction_site_4_1768113084947.png', label: 'D区-土方机械作业' },
+  { src: '/construction_site_1_1768113029656.png', label: 'E区-材料进场卸货' },
+];
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selectedSite, setSelectedSite] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const wrapperRef = useRef(null);
-
-  const marqueeData = [
-    { src: siteImg1, label: 'A区-主体结构施工' },
-    { src: siteImg2, label: 'B区-现场技术交底' },
-    { src: siteImg3, label: 'C区-塔吊夜间作业' },
-    { src: siteImg4, label: 'D区-土方机械作业' },
-    { src: siteImg1, label: 'E区-材料进场卸货' }, // Reuse for variety
-  ];
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
