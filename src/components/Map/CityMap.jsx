@@ -16,23 +16,28 @@ const createCustomIcon = (status) => {
     });
 };
 
-const CityMap = ({ onSiteSelect }) => {
+const CityMap = ({ onSiteSelect, sites: externalSites }) => {
     const position = [31.2304, 121.4737]; // Shanghai
     const [sites, setSites] = useState([]);
 
     useEffect(() => {
-        // Generate mock sites clustered around the center
-        const mockSites = Array.from({ length: 40 }).map((_, i) => ({
-            id: i,
-            lat: 31.2304 + (Math.random() - 0.5) * 0.15,
-            lng: 121.4737 + (Math.random() - 0.5) * 0.15,
-            name: `项目 #${String(i + 1).padStart(3, '0')}`,
-            address: `浦东新区 科技大道 ${Math.floor(Math.random() * 800) + 1}号`,
-            status: Math.random() > 0.95 ? 'alert' : 'active',
-            progress: Math.floor(Math.random() * 100),
-        }));
-        setSites(mockSites);
-    }, []);
+        // Use external sites if provided, otherwise generate mock sites
+        if (externalSites && externalSites.length > 0) {
+            setSites(externalSites);
+        } else {
+            // Generate mock sites clustered around the center
+            const mockSites = Array.from({ length: 40 }).map((_, i) => ({
+                id: i,
+                lat: 31.2304 + (Math.random() - 0.5) * 0.15,
+                lng: 121.4737 + (Math.random() - 0.5) * 0.15,
+                name: `项目 #${String(i + 1).padStart(3, '0')}`,
+                address: `浦东新区 科技大道 ${Math.floor(Math.random() * 800) + 1}号`,
+                status: Math.random() > 0.95 ? 'alert' : 'active',
+                progress: Math.floor(Math.random() * 100),
+            }));
+            setSites(mockSites);
+        }
+    }, [externalSites]);
 
     return (
         <MapContainer

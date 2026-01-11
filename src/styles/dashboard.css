@@ -256,6 +256,28 @@ body {
   transition: transform 0.3s ease;
 }
 
+/* Admin link in header */
+.admin-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 6px;
+  color: var(--primary-cyan);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-link:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: var(--primary-cyan);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  transform: scale(1.05);
+}
+
 /* Fullscreen mode - Maintain 16:9 aspect ratio, scale to fit viewport */
 .dashboard-wrapper.is-fullscreen {
   /* Reset size constraints for scaling */
@@ -387,6 +409,19 @@ body {
   overflow: hidden;
   transition: all 0.3s ease;
   animation: slideIn 0.5s ease-out backwards;
+  min-height: 0;
+}
+
+.panel-title {
+  flex-shrink: 0;
+}
+
+.content-placeholder {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .left-column,
@@ -394,6 +429,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.center-column {
+  height: 100%;
+  min-height: 0;
 }
 
 /* Stagger panel animations for dramatic effect */
