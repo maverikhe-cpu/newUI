@@ -9,6 +9,8 @@ import NeuralNetwork from './components/Effects/NeuralNetwork';
 
 import SiteMarquee from './components/Widgets/SiteMarquee';
 
+import WeatherWidget from './components/Widgets/WeatherWidget';
+
 // Construction site images from public folder
 const marqueeData = [
   { src: '/construction_site_1_1768113029656.png', label: 'A区-主体结构施工' },
@@ -95,6 +97,7 @@ function App() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <WeatherWidget />
             <div className="header-time">
               {currentTime.toLocaleDateString()} {currentTime.toLocaleTimeString()}
             </div>
