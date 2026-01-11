@@ -7,9 +7,10 @@ import MouseGlow from './components/Effects/MouseGlow';
 import ParticleBackground from './components/Effects/ParticleBackground';
 import NeuralNetwork from './components/Effects/NeuralNetwork';
 
-import SiteMarquee from './components/Widgets/SiteMarquee';
 
+import SiteMarquee from './components/Widgets/SiteMarquee';
 import WeatherWidget from './components/Widgets/WeatherWidget';
+import IntroAnimation from './components/Effects/IntroAnimation';
 
 // Construction site images from public folder
 const marqueeData = [
@@ -86,6 +87,7 @@ function App() {
 
   return (
     <div className="dashboard-wrapper" ref={wrapperRef}>
+      <IntroAnimation />
       {/* Background Effects */}
       <MouseGlow />
       <ParticleBackground particleCount={60} />
