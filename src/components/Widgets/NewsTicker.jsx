@@ -1,23 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 /**
- * NewsTicker - Vertical scrolling news ticker with smooth animation
+ * NewsTicker - Continuous vertical scrolling news ticker
  */
-const NewsTicker = ({ items = [], speed = 3000, pauseOnHover = true }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+const NewsTicker = ({ items = [], speed = 40, pauseOnHover = true }) => {
     const [isPaused, setIsPaused] = useState(false);
     const containerRef = useRef(null);
-    const intervalRef = useRef(null);
+    const trackRef = useRef(null);
 
-    useEffect(() => {
-        if (!pauseOnHover || !isPaused) {
-            intervalRef.current = setInterval(() => {
-                setCurrentIndex(prev => (prev + 1) % items.length);
-            }, speed);
-        }
+    if (!items.length) return null;
 
-        return () => clearInterval(intervalRef.current);
-    }, [items.length, speed, isPaused, pauseOnHover]);
+    // Clone items multiple times for seamless infinite scroll
+    const clonedItems = [...items, ...items, ...items];
 
     const handleMouseEnter = () => {
         if (pauseOnHover) {
@@ -30,8 +24,6 @@ const NewsTicker = ({ items = [], speed = 3000, pauseOnHover = true }) => {
             setIsPaused(false);
         }
     };
-
-    if (!items.length) return null;
 
     return (
         <div
@@ -46,57 +38,40 @@ const NewsTicker = ({ items = [], speed = 3000, pauseOnHover = true }) => {
             }}
         >
             <div
+                ref={trackRef}
                 className="news-ticker-track"
                 style={{
-                    transform: `translateY(-${currentIndex * 100}%)`,
-                    transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+                    animation: isPaused ? 'none' : `scrollUp ${items.length * speed}s linear infinite`
                 }}
             >
-                {items.map((item, idx) => (
+                {clonedItems.map((item, idx) => (
                     <div
                         key={idx}
                         className="news-item"
                         style={{
-                            height: '100%',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            padding: '2px 0',
-                            borderBottom: idx < items.length - 1 ? 'none' : 'none'
+                            padding: '8px 0',
+                            borderBottom: '1px solid rgba(0, 240, 255, 0.1)'
                         }}
                     >
-                        <span style={{ fontSize: '12px', color: item.color || 'var(--primary-cyan)' }}>
+                        <span style={{ fontSize: '12px', color: item.color || 'var(--primary-cyan)', minWidth: '60px' }}>
                             {item.time}
                         </span>
-                        <span style={{ fontSize: '12px' }}>{item.content}</span>
+                        <span style={{ fontSize: '12px', textAlign: 'right', flex: 1 }}>{item.content}</span>
                     </div>
                 ))}
             </div>
 
-            {/* Progress indicator */}
-            <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '2px',
-                background: 'rgba(0, 240, 255, 0.1)'
-            }}>
-                <div
-                    className="ticker-progress"
-                    style={{
-                        height: '100%',
-                        width: '0%',
-                        background: 'linear-gradient(90deg, var(--primary-cyan), var(--secondary-amber))',
-                        animation: isPaused ? 'none' : `tickerProgress ${speed}ms linear`
-                    }}
-                />
-            </div>
-
             <style>{`
-                @keyframes tickerProgress {
-                    from { width: 0%; }
-                    to { width: 100%; }
+                @keyframes scrollUp {
+                    0% {
+                        transform: translateY(0);
+                    }
+                    100% {
+                        transform: translateY(-33.33%);
+                    }
                 }
             `}</style>
         </div>

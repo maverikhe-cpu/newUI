@@ -247,7 +247,7 @@ function App() {
             <NeuralNetwork width={280} height={60} nodeCount={8} style={{ top: 'auto', bottom: 0, opacity: 0.15 }} />
             <div className="panel-title"><Clock size={18} /> 最新动态</div>
             <div className="content-placeholder" style={{ height: 'calc(100% - 24px)', display: 'flex', alignItems: 'center' }}>
-              <NewsTicker items={newsData} speed={3000} pauseOnHover={true} />
+              <NewsTicker items={newsData} speed={35} pauseOnHover={true} />
             </div>
           </div>
           <div className="panel with-mouse-glow" style={{ flex: 1.1, position: 'relative', overflow: 'hidden', minHeight: '0' }}>
