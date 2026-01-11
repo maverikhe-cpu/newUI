@@ -2,16 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 
 /**
  * NewsTicker - Continuous vertical scrolling news ticker
+ * Uses CSS animation for seamless infinite scrolling
  */
-const NewsTicker = ({ items = [], speed = 40, pauseOnHover = true }) => {
+const NewsTicker = ({ items = [], speed = 3000, pauseOnHover = true, visibleItems = 3 }) => {
     const [isPaused, setIsPaused] = useState(false);
     const containerRef = useRef(null);
-    const trackRef = useRef(null);
-
-    if (!items.length) return null;
-
-    // Clone items multiple times for seamless infinite scroll
-    const clonedItems = [...items, ...items, ...items];
+    const itemHeight = 100 / visibleItems;
 
     const handleMouseEnter = () => {
         if (pauseOnHover) {
@@ -24,6 +20,15 @@ const NewsTicker = ({ items = [], speed = 40, pauseOnHover = true }) => {
             setIsPaused(false);
         }
     };
+
+    if (!items.length) return null;
+
+    // Calculate animation duration based on speed (time per item) and total items
+    const animationDuration = speed * items.length;
+
+    // Duplicate items multiple times for seamless loop - we need enough for smooth scrolling
+    // With CSS animation, we scroll from 0 to -50% (halfway through duplicated items)
+    const displayItems = [...items, ...items];
 
     return (
         <div
@@ -38,28 +43,30 @@ const NewsTicker = ({ items = [], speed = 40, pauseOnHover = true }) => {
             }}
         >
             <div
-                ref={trackRef}
                 className="news-ticker-track"
                 style={{
-                    animation: isPaused ? 'none' : `scrollUp ${items.length * speed}s linear infinite`
+                    display: 'flex',
+                    flexDirection: 'column',
+                    animation: isPaused ? 'none' : `scrollUp ${animationDuration}ms linear infinite`
                 }}
             >
-                {clonedItems.map((item, idx) => (
+                {displayItems.map((item, idx) => (
                     <div
-                        key={idx}
+                        key={`${idx}-${item.time}`}
                         className="news-item"
                         style={{
+                            height: `${itemHeight}%`,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            padding: '8px 0',
-                            borderBottom: '1px solid rgba(0, 240, 255, 0.1)'
+                            padding: '2px 0',
+                            flexShrink: 0
                         }}
                     >
-                        <span style={{ fontSize: '12px', color: item.color || 'var(--primary-cyan)', minWidth: '60px' }}>
+                        <span style={{ fontSize: '12px', color: item.color || 'var(--primary-cyan)', minWidth: '55px' }}>
                             {item.time}
                         </span>
-                        <span style={{ fontSize: '12px', textAlign: 'right', flex: 1 }}>{item.content}</span>
+                        <span style={{ fontSize: '12px', flex: 1, textAlign: 'left', paddingLeft: '8px' }}>{item.content}</span>
                     </div>
                 ))}
             </div>
@@ -70,7 +77,7 @@ const NewsTicker = ({ items = [], speed = 40, pauseOnHover = true }) => {
                         transform: translateY(0);
                     }
                     100% {
-                        transform: translateY(-33.33%);
+                        transform: translateY(-50%);
                     }
                 }
             `}</style>

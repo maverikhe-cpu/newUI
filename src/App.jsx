@@ -22,15 +22,28 @@ const marqueeData = [
   { src: '/construction_site_1_1768113029656.png', label: 'E区-材料进场卸货' },
 ];
 
-// News ticker data
+// News ticker data - 20 items for continuous scrolling
 const newsData = [
-  { time: '10:42 AM', content: 'B区电路负载异常', color: 'var(--alert-red)' },
-  { time: '09:15 AM', content: '主材已进场 (地板)', color: 'var(--primary-cyan)' },
-  { time: '08:30 AM', content: '泥木班组打卡开工', color: 'var(--primary-cyan)' },
-  { time: '08:00 AM', content: '早班会进行安全交底', color: 'var(--primary-cyan)' },
-  { time: '07:45 AM', content: 'A区塔吊检查完成', color: 'var(--secondary-amber)' },
-  { time: '07:30 AM', content: '全员入场体温检测', color: 'var(--secondary-amber)' },
-  { time: '07:15 AM', content: '现场照明系统开启', color: 'var(--secondary-amber)' },
+  { time: '11:45', content: 'A区-3号楼主体结构封顶完成', color: 'var(--primary-cyan)' },
+  { time: '11:30', content: 'B区-水电班组完成布线验收', color: 'var(--primary-cyan)' },
+  { time: '11:15', content: 'C区-电梯安装调试通过检测', color: 'var(--primary-cyan)' },
+  { time: '11:00', content: 'D区-外墙保温层施工完成80%', color: 'var(--primary-cyan)' },
+  { time: '10:45', content: 'E区-园林景观工程开始施工', color: 'var(--primary-cyan)' },
+  { time: '10:30', content: 'A区-消防系统通过初步验收', color: 'var(--primary-cyan)' },
+  { time: '10:15', content: 'B区-地库环氧地坪开始铺设', color: 'var(--primary-cyan)' },
+  { time: '10:00', content: 'C区-铝合金门窗安装完毕', color: 'var(--primary-cyan)' },
+  { time: '09:45', content: 'D区-室内精装工程全面展开', color: 'var(--primary-cyan)' },
+  { time: '09:30', content: 'E区-室外管网施工完成', color: 'var(--primary-cyan)' },
+  { time: '09:15', content: '主材已进场-地板瓷砖3000㎡', color: 'var(--secondary-amber)' },
+  { time: '09:00', content: '泥木班组打卡开工-实到32人', color: 'var(--primary-cyan)' },
+  { time: '08:45', content: 'A区-弱电智能化系统调试中', color: 'var(--primary-cyan)' },
+  { time: '08:30', content: 'B区-空调通风系统安装完毕', color: 'var(--primary-cyan)' },
+  { time: '08:15', content: 'C区-厨卫防水施工完成', color: 'var(--primary-cyan)' },
+  { time: '08:00', content: 'D区-公共区域装修材料进场', color: 'var(--secondary-amber)' },
+  { time: '07:45', content: 'E区-景观绿化苗木开始种植', color: 'var(--primary-cyan)' },
+  { time: '07:30', content: '安全巡查-各区域正常无隐患', color: 'var(--primary-cyan)' },
+  { time: '07:15', content: '晨会召开-当日工作安排完成', color: 'var(--primary-cyan)' },
+  { time: '07:00', content: '班组进场-水电班组到岗28人', color: 'var(--primary-cyan)' },
 ];
 
 function App() {
@@ -98,7 +111,7 @@ function App() {
   };
 
   return (
-    <div className="dashboard-wrapper" ref={wrapperRef}>
+    <div className={`dashboard-wrapper${isFullscreen ? ' is-fullscreen' : ''}`} ref={wrapperRef}>
       <IntroAnimation />
       {/* Background Effects */}
       <MouseGlow />
@@ -246,8 +259,8 @@ function App() {
             <div className="holographic-overlay" />
             <NeuralNetwork width={280} height={60} nodeCount={8} style={{ top: 'auto', bottom: 0, opacity: 0.15 }} />
             <div className="panel-title"><Clock size={18} /> 最新动态</div>
-            <div className="content-placeholder" style={{ height: 'calc(100% - 24px)', display: 'flex', alignItems: 'center' }}>
-              <NewsTicker items={newsData} speed={35} pauseOnHover={true} />
+            <div className="content-placeholder" style={{ height: 'calc(100% - 40px)', overflow: 'hidden' }}>
+              <NewsTicker items={newsData} speed={2000} visibleItems={3} pauseOnHover={true} />
             </div>
           </div>
           <div className="panel with-mouse-glow" style={{ flex: 1.1, position: 'relative', overflow: 'hidden', minHeight: '0' }}>
