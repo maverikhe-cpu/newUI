@@ -111,14 +111,44 @@ const Dashboard = () => {
           <div className="panel with-mouse-glow energy-border" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
             <div className="holographic-overlay" />
             <div className="panel-title"><Activity size={18} /> 交付能力总览</div>
-            <div className="content-placeholder" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <div style={{ flex: 1 }}>
-                <DigitalCounter value={String(business.projectCount)} label="在建项目总数" unit="个" />
-                <div style={{ marginTop: '10px' }}>
-                  <SegmentedBar value={business.completionRate} label="本年度竣工" color="#00F0FF" />
+            <div className="delivery-overview">
+              {/* Top row - Project count with mini gauge */}
+              <div className="delivery-metric">
+                <div className="delivery-metric-value">
+                  <span className="delivery-number">{business.projectCount}</span>
+                  <span className="delivery-unit">个</span>
+                </div>
+                <div className="delivery-metric-label">在建项目总数</div>
+                <div className="delivery-mini-gauge">
+                  <div className="delivery-mini-bar" style={{ width: `${business.completionRate}%` }}></div>
+                </div>
+                <div className="delivery-metric-sub">本年度竣工 {business.completionRate}%</div>
+              </div>
+
+              {/* Bottom row - On-time delivery */}
+              <div className="delivery-metric delivery-metric-accent">
+                <div className="delivery-metric-value">
+                  <span className="delivery-number">{business.onTimeDelivery}%</span>
+                </div>
+                <div className="delivery-metric-label">准时交付率</div>
+                <div className="delivery-trend-indicator">
+                  <svg width="100%" height="100%" viewBox="0 0 60 20">
+                    <defs>
+                      <linearGradient id="cyanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(0, 240, 255, 0.2)" />
+                        <stop offset="100%" stopColor="rgba(0, 240, 255, 0.8)" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M0,15 L10,12 L20,14 L30,8 L40,10 L50,5 L60,3"
+                      fill="none"
+                      stroke="url(#cyanGradient)"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </div>
               </div>
-              <CircularGauge value={business.onTimeDelivery} label="准时交付" color="#00F0FF" />
             </div>
           </div>
           <div className="panel with-mouse-glow energy-border" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
